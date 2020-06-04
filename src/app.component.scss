@@ -1,0 +1,61 @@
+
+ul {
+    list-style-type: none;
+    margin: auto;
+    padding: 10px;
+    width: 350px;
+    font-family: sans-serif;
+    color: white;
+    border-radius: 4px;
+    z-index: 3;
+    position: absolute;
+  
+    li {
+      border-radius: 4px 4px 4px 4px;
+      width: 100%;
+        padding: 10px -3px;
+        cursor: pointer;
+        border-color: black;
+        z-index: 3;
+        background: transparent;
+        &.selected {
+          background-color: #42b142;
+        }
+  
+        &:hover {
+            background-color: #42b142;
+        }
+        &:hover .dropdown{
+          display: block;
+      }
+    }
+  
+    .sidebar ul li ul{
+      height: 200px;
+    }
+  
+    .dropdown{
+        display: none;
+        z-index: 3;
+    }
+    
+  }
+  .sidebar{
+  width: 100%;
+  }
+  div .playerBorder{
+      margin: auto;
+      padding: 10px;
+  }
+  
+  div .playerBorder{
+      margin: auto;
+      padding: 10px;
+  }
+  
+  vg-player {
+      width:80%;
+      height: 70%;
+      z-index: 0;
+      position: absolute;
+  }
