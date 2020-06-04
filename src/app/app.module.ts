@@ -6,11 +6,12 @@ import { NgModule } from '@angular/core';
 import {VgControlsModule} from 'videogular2/controls';
 import {VgCoreModule} from 'videogular2/core';
 import { AppComponent } from './app.component';
-
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -20,4 +21,5 @@ import { AppComponent } from './app.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

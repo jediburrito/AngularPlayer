@@ -1,4 +1,5 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild, AfterViewInit} from '@angular/core';
+import { PlayerComponent } from './player/player.component';
 import { VgAPI } from 'videogular2/core';
 
 export interface IMedia {
@@ -10,27 +11,29 @@ export interface IMedia {
 @Component({
    selector: 'app-root',
    templateUrl: './app.component.html',
-   styleUrls: [ './app.component.scss' ]
+   styleUrls: [ './app.component.scss']
+   
 })
-export class AppComponent {
+
+export class AppComponent implements AfterViewInit{
   clips: Array<any> = [
     {
       clipnumber: 1,
-      url: 'https://d2htis0rx2m2xo.cloudfront.net/dev_uploads/10955/1.mp4',
+      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       personnel: 'Offense',
       down: 1,
       distance: 10
     }, 
     {
       clipnumber: 2,
-      url: 'https://d2htis0rx2m2xo.cloudfront.net/dev_uploads/10955/2.mp4',
+      url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
       personnel: 'Offense',
       down: 2,
       distance: 9
     }, 
     {
       clipnumber: 3,
-      url: 'https://d2htis0rx2m2xo.cloudfront.net/dev_uploads/10955/3.mp4',
+      url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
       personnel: 'Offense',
       down: 3,
       distance: 2
@@ -79,38 +82,44 @@ export class AppComponent {
     src: oldVid.url, type: 'video/mp4'}
   )
   );
+  currentItem: IMedia = this.playlist[ 0 ];
+  nowPlaying = this.currentItem.title;
+  currentIndex = 0;
+  api: VgAPI;
 
-currentIndex = 0;
-currentItem: IMedia = this.playlist[ this.currentIndex ];
-nowPlaying = this.currentItem.title;
-api: VgAPI;
+  @ViewChild(PlayerComponent) childComponentRef: PlayerComponent;
 
-   onClickPlaylistItem(item: IMedia) {
-     // this.currentIndex = index;
-       this.currentItem = item;
-   }
-   
-   onPlayerReady(api: VgAPI) {
-    this.api = api;
-    this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(
-        this.playVideo.bind(this)
-    );
-    this.api.getDefaultMedia().subscriptions.ended.subscribe(
-      this.nextVideo.bind(this)
-   );
+  ngAfterViewInit(){
+    //this.childComponentRef.nowPlaying = 'it works!';
+  }
+
+  onClickPlaylistItem(item: IMedia, index: number) {
+    this.currentIndex = index;
+     this.currentItem = item;
+ }
+ 
+ onPlayerReady(api: VgAPI) {
+  this.api = api;
+  this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(
+      this.playVideo.bind(this)
+  );
+  this.api.getDefaultMedia().subscriptions.ended.subscribe(
+    this.nextVideo.bind(this)
+ );
 }
 
 nextVideo() {
-  this.currentIndex++;
-  if (this.currentIndex === this.playlist.length) {
-      this.currentIndex = 0;
-  }
+this.currentIndex++;
+if (this.currentIndex === this.playlist.length) {
+    this.currentIndex = 0;
+}
 
-  this.currentItem = this.playlist[ this.currentIndex ];
+this.currentItem = this.playlist[ this.currentIndex ];
 }
 
 playVideo() {
-  this.nowPlaying = this.currentItem.title;
-   this.api.play();
+this.nowPlaying = this.currentItem.title;
+ this.api.play();
 }
+ 
 }
