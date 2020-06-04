@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/videogular2/fonts/videogular.css";
+header{
+    display: block;
+    height: 50px;
+    width: 100%;
+    color: #42b142;
+    background-color: black;
+}
+html{
+    background-color: rgb(102, 100, 100);
+    background-image: url( "./footballField.jpg");
+    background-size: cover;
+}
+
+footer{
+    float: bottom;
+    width: 100%;
+    height: 20px;
+    background-color: black;
+}
